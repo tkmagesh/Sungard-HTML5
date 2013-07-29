@@ -31,28 +31,32 @@
 
 	</style>
 	<script>
+
 	(function(){
 		var storage = window.localStorage;
 
 		window.addEventListener("DOMContentLoaded",initialize);
+		window.addEventListener("storage",loadAllTasks);
 		function initialize(){
 			document.getElementById("btnAddTask").addEventListener("click",btnAddTaskClick);
 			document.getElementById("btnRemoveCompleted").addEventListener("click",btnRemoveCompletedClick);
+			loadAllTasks();
+		}
+
+		function loadAllTasks(){
+			document.getElementById("ulTaskList").innerHTML = '';
 			var allTasks = getAllTasksFromStorage();
 			for(var index in allTasks){
 				var task = allTasks[index];
 				addTaskToList(task);
 			}
 		}
+
 		function getAllTasksFromStorage(){
 			var result = [];
 			for(var i=0;i<storage.length;i++){
 				var taskId = storage.key(i),
-					taskName = storage.getItem(taskId),
-					task = {
-					taskId : taskId,
-					taskName : taskName
-				};
+					task = window.JSON.parse(storage.getItem(taskId));
 				result.push(task);
 			}
 			return result;
@@ -70,16 +74,21 @@
 			newTaskItem.innerHTML = task.taskName;
 			newTaskItem.setAttribute("taskId",task.taskId);
 			newTaskItem.addEventListener("click", onTaskItemClick);
+			if (task.isCompleted){
+				newTaskItem.classList.add("completed");
+			}
 			ulTaskList.appendChild(newTaskItem);
 		}
 
 		function addTaskToStorage(taskName){
 			var taskId = new Date().getTime().toString();
-			storage.setItem(taskId,taskName);
-			return {
+			var task = {
 				taskId : taskId,
-				taskName : taskName
+				taskName : taskName,
+				isCompleted : false
 			};
+			storage.setItem(taskId,window.JSON.stringify(task));
+			return task;
 		}
 
 		function btnRemoveCompletedClick(){
@@ -103,6 +112,12 @@
 			} else {
 				this.classList.add("completed");
 			}
+			toggleCompletionInStorage(this.getAttribute("taskId"));
+		}
+		function toggleCompletionInStorage(taskId){
+			var task = window.JSON.parse(storage.getItem(taskId));
+			task.isCompleted = !task.isCompleted;
+			storage.setItem(taskId,window.JSON.stringify(task));
 		}
 	})();
 
