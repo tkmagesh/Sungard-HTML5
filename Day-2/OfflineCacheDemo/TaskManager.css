@@ -1,0 +1,14 @@
+body{
+	padding: 0px;
+	margin-top: 0px;
+	margin-left: 0px;
+	margin-right: 0px;
+}
+#content{
+	margin: 10px;
+}
+.completed{
+	color : red;
+	font-style: italic;
+	text-decoration: line-through;
+}

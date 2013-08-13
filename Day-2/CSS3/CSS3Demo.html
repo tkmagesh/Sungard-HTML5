@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>CSS3 Demo</title>
+	<style>
+	#content{
+		margin: 100px;
+		height: 300px;
+		width: 300px;
+		line-height: 300px;
+		text-align: center;
+		font-size: -webkit-xxx-large;
+		border : 5px solid black;
+
+		border-radius: 150px 150px 150px 10px;
+		-webkit-transform : rotate(-45deg);
+		background: -webkit-linear-gradient(left, white 0%, yellow 50%, red 100%);
+		-webkit-transition : -webkit-transform 1s;
+	}
+	#content:hover{
+		-webkit-transform : rotate(360deg);
+	}
+	#content > div{
+		-webkit-transform : rotate(45deg);
+		-moz-transform : rotate(45deg);
+		-ms-transform : rotate(45deg);
+		-o-transform : rotate(45deg);
+		transform : rotate(45deg);
+	}
+	</style>
+</head>
+<body>
+	<!--
+		1. gradient background
+		2. Rounded corners
+		3. Shadows
+		4. Fancy Fonts
+		5. Rotate etc
+
+		6. Default CSS selectors are not sufficient
+
+		vendor prefixes
+		-webkit- -> chrome, safari, opera (new)
+		-moz- -> firefox
+		-ms- -> ie
+		-o- -> opera (old)
+	 -->
+	<div id="content">
+		<div>
+			Sungard	
+		</div>
+		
+	</div>
+
+</body>
+
+</html>
